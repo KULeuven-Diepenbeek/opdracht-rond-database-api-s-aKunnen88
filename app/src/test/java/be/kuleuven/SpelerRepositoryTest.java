@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 public abstract class SpelerRepositoryTest {
-  protected final String CONNECTIONSTRING_TO_TEST_DB = "jdbc:sqlite:mydatabase.db";
+  protected final String CONNECTIONSTRING_TO_TEST_DB = "jdbc:sqlite:tennisToernooi.db";
   protected final String USER_OF_TEST_DB = "";
   protected final String PWD_OF_TEST_DB = "";
 
