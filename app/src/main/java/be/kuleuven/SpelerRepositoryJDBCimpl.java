@@ -19,8 +19,8 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
   public void addSpelerToDb(Speler speler) {
       try{ 
         PreparedStatement prepared = (PreparedStatement) connection
-          .prepareStatement("INSERT INTO speler (tennisvlaanderenid, naam, punten) VALUES (?, ?, ?);");
-        prepared.setInt(1, speler.getTennisvlaanderenid());
+          .prepareStatement("INSERT INTO speler (tennisvlaanderenId, naam, punten) VALUES (?, ?, ?);");
+        prepared.setInt(1, speler.getTennisvlaanderenId());
         prepared.setString(2, speler.getNaam());
         prepared.setInt(3, speler.getPunten());
         prepared.executeUpdate();
@@ -39,11 +39,11 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
     Speler speler = null;
     try{
       Statement s = (Statement) connection.createStatement();
-      String statement = "SELECT * FROM speler WHERE tennisvlaanderenid = '" + tennisvlaanderenId + "'";
+      String statement = "SELECT * FROM speler WHERE tennisvlaanderenId = '" + tennisvlaanderenId + "'";
       ResultSet result = s.executeQuery(statement);
 
       while(result.next()){
-        int id = result.getInt("tennisvlaanderenid");
+        int id = result.getInt("tennisvlaanderenId");
         String naam = result.getString("naam");
         int punten = result.getInt("punten");
         
@@ -71,7 +71,7 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
       ResultSet result = s.executeQuery(stmt);
 
       while (result.next()) {
-        int tennisvlaanderenId = result.getInt("tennisvlaanderenid");
+        int tennisvlaanderenId = result.getInt("tennisvlaanderenId");
         String naam = result.getString("naam");
         int punten = result.getInt("punten");
 
@@ -91,12 +91,12 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
 
   @Override
   public void updateSpelerInDb(Speler speler) {
-    getSpelerByTennisvlaanderenId(speler.getTennisvlaanderenid());
-    String sql = "UPDATE speler SET naam = ?, punten = ? WHERE tennisvlaanderenid = ?";
+    getSpelerByTennisvlaanderenId(speler.getTennisvlaanderenId());
+    String sql = "UPDATE speler SET naam = ?, punten = ? WHERE tennisvlaanderenId = ?";
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setString(1, speler.getNaam());
       ps.setInt(2, speler.getPunten());
-      ps.setInt(3, speler.getTennisvlaanderenid());
+      ps.setInt(3, speler.getTennisvlaanderenId());
       ps.executeUpdate();
 
       ps.close();
@@ -109,7 +109,7 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
   @Override
   public void deleteSpelerInDb(int tennisvlaanderenId) {
     getSpelerByTennisvlaanderenId(tennisvlaanderenId);
-    String sql = "DELETE FROM speler WHERE tennisvlaanderenid = ?";
+    String sql = "DELETE FROM speler WHERE tennisvlaanderenId = ?";
     
     try(PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setInt(1, tennisvlaanderenId);
@@ -123,8 +123,8 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
   }
 
   @Override
-  public String getHoogsteRankingVanSpeler(int tennisvlaanderenid) {
-    getSpelerByTennisvlaanderenId(tennisvlaanderenid);
+  public String getHoogsteRankingVanSpeler(int tennisvlaanderenId) {
+    getSpelerByTennisvlaanderenId(tennisvlaanderenId);
     String resultString = null;
 
     try {
@@ -135,8 +135,8 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
                             "WHERE (w.speler1 = ? OR w.speler2 = ?) " +
                             "ORDER BY w.finale ASC " +
                             "LIMIT 1");
-        prepared.setInt(1, tennisvlaanderenid);
-        prepared.setInt(2, tennisvlaanderenid);
+        prepared.setInt(1, tennisvlaanderenId);
+        prepared.setInt(2, tennisvlaanderenId);
         ResultSet result = prepared.executeQuery();
 
         if (result.next()) {
@@ -145,7 +145,7 @@ public class SpelerRepositoryJDBCimpl implements SpelerRepository {
           Integer winnaar = result.getObject("winnaar") != null ? result.getInt("winnaar") : null;
 
           String finaleString;
-          if (finale == 1 && winnaar != null && winnaar == tennisvlaanderenid) {
+          if (finale == 1 && winnaar != null && winnaar == tennisvlaanderenId) {
              finaleString = "winst";
           } else if (finale == 1) {
             finaleString = "finale";
