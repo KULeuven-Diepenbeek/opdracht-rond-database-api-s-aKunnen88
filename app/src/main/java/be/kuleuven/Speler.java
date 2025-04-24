@@ -2,9 +2,19 @@ package be.kuleuven;
 
 import java.util.ArrayList;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "speler")
+
 public class Speler {
+  @Id
   private int tennisvlaanderenId;
+
+  @Column(name = "naam")
   private String naam;
+
+  @Column(name = "punten")
   private int punten;
   // For relations
   private ArrayList<Wedstrijd> wedstrijden;

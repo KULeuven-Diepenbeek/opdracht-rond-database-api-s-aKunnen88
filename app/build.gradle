@@ -37,9 +37,12 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:5.6.15.Final'
     // JPA API
     implementation 'javax.persistence:javax.persistence-api:2.2'
+    // implementation 'mysql:mysql-connector-java:5.1.6'
 
     // This dependency is used by the application.
     implementation libs.guava
+
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
